@@ -19,8 +19,9 @@ namespace MockServer
         private RestMockRepository restMockRepository;
         private HttpListener listener;
         private int Port = 3000;
+        private string Url;
 
-        public delegate void ServerStartedEventHandler(string message);
+        public delegate void ServerStartedEventHandler(string message, string url);
         public delegate void ServerStoppedEventHandler(string message);
         public event ServerStartedEventHandler Server_Started;
         public event ServerStoppedEventHandler Server_Stopped;
@@ -28,10 +29,10 @@ namespace MockServer
         public Server(int port)
         {
             this.Port = port;
+            this.Url = $"http://*:{this.Port}/";
 
             this.listener = new HttpListener();
-            this.listener.Prefixes.Clear();
-            this.listener.Prefixes.Add($"http://*:{this.Port}/");
+            this.listener.Prefixes.Add(this.Url);
 
             restMockRepository = new RestMockRepository();
         }
@@ -51,7 +52,7 @@ namespace MockServer
                 }, TaskCreationOptions.LongRunning);
 
                 if (Server_Started != null)
-                    Server_Started("Server started");
+                    Server_Started("Server started", this.Url);
             }
         }
 

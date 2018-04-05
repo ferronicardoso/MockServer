@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
             this.btnMocks = new System.Windows.Forms.Button();
+            this.iconServer = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
             // 
             // btnStart
@@ -84,6 +88,17 @@
             this.btnMocks.UseVisualStyleBackColor = true;
             this.btnMocks.Click += new System.EventHandler(this.btnMocks_Click);
             // 
+            // iconServer
+            // 
+            this.iconServer.Icon = ((System.Drawing.Icon)(resources.GetObject("iconServer.Icon")));
+            this.iconServer.Text = "Mock Server";
+            this.iconServer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.iconServer_MouseDoubleClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 26);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,6 +115,7 @@
             this.Text = "Mock server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,6 +128,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.Button btnMocks;
+        private System.Windows.Forms.NotifyIcon iconServer;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 
