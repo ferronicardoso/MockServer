@@ -72,7 +72,6 @@
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(100, 20);
             this.txtPort.TabIndex = 3;
-            this.txtPort.Text = "3000";
             // 
             // btnMocks
             // 

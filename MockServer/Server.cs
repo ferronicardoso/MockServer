@@ -9,6 +9,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MockServer
 {
@@ -17,9 +18,13 @@ namespace MockServer
     {
         private RestMockRepository restMockRepository;
         private HttpListener listener;
-        private HttpListenerContext context;
-        private int Port = 80;
-        
+        private int Port = 3000;
+
+        public delegate void ServerStartedEventHandler(string message);
+        public delegate void ServerStoppedEventHandler(string message);
+        public event ServerStartedEventHandler Server_Started;
+        public event ServerStoppedEventHandler Server_Stopped;
+
         public Server(int port)
         {
             this.Port = port;
@@ -33,24 +38,39 @@ namespace MockServer
                 
         public void Start()
         {
-            listener.Start();
-
-            for (; ; )
+            if (!listener.IsListening)
             {
-                this.context = listener.GetContext();
-                ResponseContext();
+                listener.Start();
+
+                Task.Factory.StartNew(async () =>
+                {
+                    while (true)
+                    {
+                        await ResponseContext(listener);
+                    }
+                }, TaskCreationOptions.LongRunning);
+
+                if (Server_Started != null)
+                    Server_Started("Server started");
             }
         }
 
         public void Stop()
         {
-
+            if (listener.IsListening)
+            {
+                listener.Stop();
+                if (Server_Stopped != null)
+                    Server_Stopped("Server stopped");
+            }
         }
 
-        private void ResponseContext()
+        private async Task ResponseContext(HttpListener listener)
         {
-            var url = this.context.Request.Url;
-            var method = this.context.Request.HttpMethod;
+            var context = await listener.GetContextAsync();
+
+            var url = context.Request.Url;
+            var method = context.Request.HttpMethod;
             var mock = this.restMockRepository.GetMatch(url.AbsolutePath, method);
             
             if (mock != null)

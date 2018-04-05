@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace MockServer
@@ -13,7 +12,6 @@ namespace MockServer
     public partial class frmMain : Form
     {
         private Server server;
-        private Thread ServerThread;
 
         public frmMain()
         {
@@ -22,7 +20,7 @@ namespace MockServer
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            InitializeComponent();
+            this.txtPort.Text = "3000";
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,16 +42,23 @@ namespace MockServer
         {
             try
             {
-                var port = 3000;
-                if (string.IsNullOrWhiteSpace(txtPort.Text) || !int.TryParse(txtPort.Text, out port))
-                {
-                    txtPort.Text = "3000";
-                    int.TryParse(txtPort.Text, out port);
-                }
-                
+                if (string.IsNullOrWhiteSpace(txtPort.Text)) txtPort.Text = "3000";
+
+                int port;
+                int.TryParse(txtPort.Text, out port);
+                if (port <= 0) port = 3000;
+
                 server = new Server(port);
-                ServerThread = new Thread(server.Start);
-                ServerThread.Start();
+                server.Server_Started += (string message) =>
+                {
+                    MessageBox.Show(message, "Server Started", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                };
+                server.Server_Stopped += (string message) =>
+                {
+                    MessageBox.Show(message, "Server Stopped", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                };
+
+                server.Start();
             }
             catch (Exception ex)
             {
