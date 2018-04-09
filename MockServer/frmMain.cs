@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MockServer.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,13 +18,13 @@ namespace MockServer
         {
             InitializeComponent();
         }
-
+        
         private void frmMain_Load(object sender, EventArgs e)
         {
             this.txtPort.Text = "3000";
             this.txtPort.Enabled = true;
-            this.btnStart.Enabled = true;
-            this.btnStop.Enabled = false;
+            this.btnStart.Enabled = mnuStart.Enabled = true;
+            this.btnStop.Enabled = mnuStop.Enabled = false;
             this.btnMocks.Enabled = true;
         }
 
@@ -46,6 +47,15 @@ namespace MockServer
         {
             try
             {
+                var mockRepository = new RestMockRepository();
+                var exists = mockRepository.Any();
+
+                if (!exists)
+                {
+                    MessageBox.Show("There is no mock registered.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(txtPort.Text)) txtPort.Text = "3000";
 
                 int port;
@@ -56,8 +66,8 @@ namespace MockServer
                 server.Server_Started += (string message, string url) =>
                 {
                     this.txtPort.Enabled = false;
-                    this.btnStart.Enabled = false;
-                    this.btnStop.Enabled = true;
+                    this.btnStart.Enabled = this.mnuStart.Enabled = false;
+                    this.btnStop.Enabled = this.mnuStop.Enabled = true;
                     this.btnMocks.Enabled = false;
                     this.WindowState = FormWindowState.Minimized;
 
@@ -68,8 +78,8 @@ namespace MockServer
                 server.Server_Stopped += (string message) =>
                 {
                     this.txtPort.Enabled = true;
-                    this.btnStart.Enabled = true;
-                    this.btnStop.Enabled = false;
+                    this.btnStart.Enabled = this.mnuStart.Enabled = true;
+                    this.btnStop.Enabled = this.mnuStop.Enabled = false;
                     this.btnMocks.Enabled = true;
 
                     iconServer.BalloonTipTitle = message;
@@ -109,6 +119,7 @@ namespace MockServer
             if (this.WindowState == FormWindowState.Minimized)
             {
                 iconServer.Visible = true;
+                this.ShowInTaskbar = false;
             }
         }
 
@@ -116,6 +127,29 @@ namespace MockServer
         {
             this.WindowState = FormWindowState.Normal;
             iconServer.Visible = false;
+            this.ShowInTaskbar = true;
+        }
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            var frmlog = new frmLog();
+            frmlog.ShowDialog();
+        }
+
+        private void mnuExit_Click(object sender, EventArgs e)
+        {
+            this.Stop();
+            this.Close();
+        }
+
+        private void mnuStart_Click(object sender, EventArgs e)
+        {
+            this.Start();
+        }
+
+        private void mnuStop_Click(object sender, EventArgs e)
+        {
+            this.Stop();
         }
     }
 }

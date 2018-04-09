@@ -42,14 +42,29 @@ namespace MockServer
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var frm = new frmEditMock();
-            frm.ShowDialog();
-            GetMockData();
+            if (gridMocks.SelectedRows.Count > 0)
+            {
+                int id;
+                int.TryParse(gridMocks.SelectedRows[0].Cells[0].Value.ToString(), out id);
+                var frm = new frmEditMock(id);
+                frm.ShowDialog();
+                GetMockData();
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
+            if (gridMocks.SelectedRows.Count > 0)
+            {
+                int id;
+                int.TryParse(gridMocks.SelectedRows[0].Cells[0].Value.ToString(), out id);
+                
+                if (MessageBox.Show("The selected record will be deleted. Do you wish to continue?", "Alert", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    this.restMockRepository.Delete(id);
+                    GetMockData();
+                }
+            }
         }
     }
 }

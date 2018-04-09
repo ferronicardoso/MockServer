@@ -36,27 +36,31 @@
             this.txtPort = new System.Windows.Forms.TextBox();
             this.btnMocks = new System.Windows.Forms.Button();
             this.iconServer = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLog = new System.Windows.Forms.Button();
+            this.mnuContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(226, 12);
+            this.btnStart.Location = new System.Drawing.Point(15, 68);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 0;
+            this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnStop
             // 
-            this.btnStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStop.Location = new System.Drawing.Point(226, 41);
+            this.btnStop.Location = new System.Drawing.Point(96, 68);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
-            this.btnStop.TabIndex = 1;
+            this.btnStop.TabIndex = 2;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -75,40 +79,84 @@
             this.txtPort.Location = new System.Drawing.Point(63, 31);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(100, 20);
-            this.txtPort.TabIndex = 3;
+            this.txtPort.TabIndex = 0;
             // 
             // btnMocks
             // 
-            this.btnMocks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMocks.Location = new System.Drawing.Point(226, 70);
+            this.btnMocks.Location = new System.Drawing.Point(177, 68);
             this.btnMocks.Name = "btnMocks";
             this.btnMocks.Size = new System.Drawing.Size(75, 23);
-            this.btnMocks.TabIndex = 4;
+            this.btnMocks.TabIndex = 3;
             this.btnMocks.Text = "Mocks";
             this.btnMocks.UseVisualStyleBackColor = true;
             this.btnMocks.Click += new System.EventHandler(this.btnMocks_Click);
             // 
             // iconServer
             // 
+            this.iconServer.ContextMenuStrip = this.mnuContext;
             this.iconServer.Icon = ((System.Drawing.Icon)(resources.GetObject("iconServer.Icon")));
             this.iconServer.Text = "Mock Server";
             this.iconServer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.iconServer_MouseDoubleClick);
             // 
-            // contextMenuStrip1
+            // mnuContext
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 26);
+            this.mnuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuStart,
+            this.mnuStop,
+            this.toolStripMenuItem1,
+            this.mnuExit});
+            this.mnuContext.Name = "contextMenuStrip1";
+            this.mnuContext.Size = new System.Drawing.Size(99, 76);
+            // 
+            // mnuStart
+            // 
+            this.mnuStart.Name = "mnuStart";
+            this.mnuStart.Size = new System.Drawing.Size(98, 22);
+            this.mnuStart.Text = "Start";
+            this.mnuStart.Click += new System.EventHandler(this.mnuStart_Click);
+            // 
+            // mnuStop
+            // 
+            this.mnuStop.Name = "mnuStop";
+            this.mnuStop.Size = new System.Drawing.Size(98, 22);
+            this.mnuStop.Text = "Stop";
+            this.mnuStop.Click += new System.EventHandler(this.mnuStop_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(95, 6);
+            // 
+            // mnuExit
+            // 
+            this.mnuExit.Name = "mnuExit";
+            this.mnuExit.Size = new System.Drawing.Size(98, 22);
+            this.mnuExit.Text = "Exit";
+            this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
+            // 
+            // btnLog
+            // 
+            this.btnLog.Location = new System.Drawing.Point(258, 68);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(75, 23);
+            this.btnLog.TabIndex = 4;
+            this.btnLog.Text = "Log";
+            this.btnLog.UseVisualStyleBackColor = true;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(313, 114);
+            this.ClientSize = new System.Drawing.Size(344, 103);
+            this.Controls.Add(this.btnLog);
             this.Controls.Add(this.btnMocks);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
+            this.MaximumSize = new System.Drawing.Size(360, 142);
+            this.MinimumSize = new System.Drawing.Size(360, 142);
             this.Name = "frmMain";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -116,6 +164,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
+            this.mnuContext.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -129,7 +178,12 @@
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.Button btnMocks;
         private System.Windows.Forms.NotifyIcon iconServer;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip mnuContext;
+        private System.Windows.Forms.Button btnLog;
+        private System.Windows.Forms.ToolStripMenuItem mnuStart;
+        private System.Windows.Forms.ToolStripMenuItem mnuStop;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mnuExit;
     }
 }
 

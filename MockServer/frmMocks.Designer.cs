@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gridMocks = new System.Windows.Forms.DataGridView();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colActive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDisplayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +49,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridMocks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridMocks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colId,
             this.colActive,
             this.colDisplayName,
             this.colPath,
@@ -57,7 +59,15 @@
             this.gridMocks.ReadOnly = true;
             this.gridMocks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gridMocks.Size = new System.Drawing.Size(648, 223);
-            this.gridMocks.TabIndex = 0;
+            this.gridMocks.TabIndex = 3;
+            // 
+            // colId
+            // 
+            this.colId.DataPropertyName = "IdRestMock";
+            this.colId.HeaderText = "Id";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Visible = false;
             // 
             // colActive
             // 
@@ -92,7 +102,7 @@
             this.btnNew.Location = new System.Drawing.Point(12, 12);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(75, 23);
-            this.btnNew.TabIndex = 1;
+            this.btnNew.TabIndex = 0;
             this.btnNew.Text = "New";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
@@ -102,7 +112,7 @@
             this.btnEdit.Location = new System.Drawing.Point(93, 12);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(75, 23);
-            this.btnEdit.TabIndex = 2;
+            this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -112,7 +122,7 @@
             this.btnDelete.Location = new System.Drawing.Point(174, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 3;
+            this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -143,6 +153,7 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colActive;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDisplayName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPath;

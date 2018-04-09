@@ -65,6 +65,11 @@ namespace MockServer.Repositories
             return collection.Exists(Query.EQ("_id", Id));
         }
 
+        public virtual bool Any()
+        {
+            return collection.Count() > 0;
+        }
+
         public virtual IEnumerable<T> List()
         {
             return collection.FindAll();

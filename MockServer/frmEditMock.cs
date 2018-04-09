@@ -39,12 +39,12 @@ namespace MockServer
             cboVerb.DisplayMember = "Text";
             cboVerb.ValueMember = "Value";
             cboVerb.DataSource = lstVerbs;
-            cboVerb.SelectedIndex = cboVerb.Items.IndexOf("GET");
+            cboVerb.SelectedValue = "GET";
 
             cboResponseStatus.DisplayMember = "Text";
             cboResponseStatus.ValueMember = "Value";
             cboResponseStatus.DataSource = lstResponseStatus;
-            cboResponseStatus.SelectedIndex = cboResponseStatus.Items.IndexOf("200");
+            cboResponseStatus.SelectedValue = "200";
 
             cboContentType.DisplayMember = "Text";
             cboContentType.ValueMember = "Value";
@@ -58,6 +58,18 @@ namespace MockServer
             if (this.Id > 0)
             {
                 this.restMock = this.restMockRepository.Get(this.Id);
+
+                txtDisplayName.Text = this.restMock.DisplayName;
+                txtDescription.Text = this.restMock.Description;
+                txtPath.Text = this.restMock.Path;
+                cboResponseStatus.SelectedValue = this.restMock.ResponseStatus.ToString();
+                cboVerb.SelectedValue = this.restMock.Verb;
+                cboContentType.Text = this.restMock.ContentType;
+                txtContentEncoding.Text = this.restMock.ContentEncoding;
+                txtResponseBody.Text = this.restMock.ResponseBody;
+                txtResponseDelay.Text = this.restMock.ResponseDelay.ToString();
+                chkResponseDelay.Checked = this.restMock.ResponseDelay > 0;
+                chkActive.Checked = this.restMock.Active;
             }
         }
 
@@ -65,6 +77,7 @@ namespace MockServer
         {
             var responseDelay = 0;
             int.TryParse(txtResponseDelay.Text, out responseDelay);
+            if (chkResponseDelay.Checked) responseDelay = 0;
 
             this.restMock.DisplayName = txtDisplayName.Text;
             this.restMock.Description = txtDescription.Text;
@@ -85,6 +98,18 @@ namespace MockServer
             {
                 this.restMockRepository.Add(this.restMock);
             }
+
+            this.Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void chkResponseDelay_CheckedChanged(object sender, EventArgs e)
+        {
+            txtResponseDelay.Enabled = chkResponseDelay.Checked;
         }
     }
 }
