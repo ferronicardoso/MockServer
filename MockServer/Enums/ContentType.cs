@@ -9,9 +9,9 @@ namespace MockServer.Enums
 {
     public enum ContentType
     {
-        [Description("appliction/json")]
+        [Description("application/json")]
         ApplicationJson = 0,
-        [Description("appliction/xml")]
+        [Description("application/xml")]
         ApplicationXml = 1,
         [Description("text/json")]
         TextJson = 2,
